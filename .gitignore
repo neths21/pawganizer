@@ -1,0 +1,5 @@
+.env
+/node_modules
+electron_log.txt
+screenshot.png
+window_screenshot.png

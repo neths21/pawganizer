@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Pawganizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="card" id="drag-region">
+    <header>
+      <span class="dot"></span>
+      <h1>focus time 🌷</h1>
+      <button id="tasks-nav-btn" title="View tasks">📋</button>
+      <button id="quit-btn" title="Quit">×</button>
+    </header>
+
+    <section class="page timer-section" id="page-timer">
+      <div class="timer-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="ring-bg" cx="60" cy="60" r="52" />
+          <circle class="ring-progress" id="ring-progress" cx="60" cy="60" r="52" />
+        </svg>
+        <div class="timer-label" id="timer-label">25:00</div>
+
+        <div class="pet-cat sleeping" id="pet-cat" title="pawganizer">
+          <svg class="pet-cat-svg" viewBox="0 0 100 90">
+            <path class="pet-cat-tail" d="M76,68 Q94,64 89,44 Q87,33 77,37" fill="none" stroke-linecap="round" />
+            <ellipse class="pet-cat-body" cx="45" cy="64" rx="26" ry="18" />
+            <g class="pet-cat-head">
+              <polygon class="pet-cat-ear" points="27,23 33,5 40,23" />
+              <polygon class="pet-cat-ear" points="50,23 57,5 63,23" />
+              <polygon class="pet-cat-ear-inner" points="30,20 34,10 38,20" />
+              <polygon class="pet-cat-ear-inner" points="52,20 56,10 60,20" />
+              <circle cx="45" cy="35" r="19" class="pet-cat-face" />
+              <line class="pet-cat-whisker" x1="19" y1="37" x2="31" y2="35" />
+              <line class="pet-cat-whisker" x1="19" y1="43" x2="31" y2="41" />
+              <line class="pet-cat-whisker" x1="71" y1="37" x2="59" y2="35" />
+              <line class="pet-cat-whisker" x1="71" y1="43" x2="59" y2="41" />
+              <ellipse class="pet-cat-eye pet-cat-eye-left" cx="38" cy="34" rx="3" ry="4" />
+              <ellipse class="pet-cat-eye pet-cat-eye-right" cx="52" cy="34" rx="3" ry="4" />
+              <polygon class="pet-cat-nose" points="43,41 47,41 45,44" />
+            </g>
+            <ellipse class="pet-cat-paw" cx="63" cy="56" rx="6" ry="9" />
+            <text class="pet-cat-zzz" x="70" y="18">z z z</text>
+          </svg>
+        </div>
+      </div>
+      <div class="timer-controls">
+        <button id="start-btn" title="Start">▶</button>
+        <button id="reset-btn" title="Stop / Reset">⏹</button>
+        <select id="mode-select">
+          <option value="25">25 min focus</option>
+          <option value="5">5 min break</option>
+          <option value="10">10 min break</option>
+          <option value="30">30 min break</option>
+          <option value="50">50 min deep work</option>
+        </select>
+      </div>
+      <div class="active-task" id="active-task">no task selected — pick one below</div>
+    </section>
+
+    <section class="page tasks-section" id="page-tasks">
+      <div class="tasks-header">
+        <button id="back-to-timer-btn" title="Back to timer">‹</button>
+        <h2>today ✨</h2>
+        <button id="add-task-btn">+ add</button>
+      </div>
+      <ul id="task-list"></ul>
+    </section>
+  </div>
+
+  <!-- Done modal: logs the completed task to the right Notion DB -->
+  <div class="modal-backdrop" id="done-modal">
+    <div class="modal">
+      <h3 id="modal-title">nice work! log it</h3>
+      <label>Type
+        <select id="log-type">
+          <option value="leetcode">DSA (Leetcode sheet)</option>
+          <option value="development">Roadmap.sh (Development sheet)</option>
+          <option value="none">Just mark done, no log</option>
+        </select>
+      </label>
+      <label>Difficulty
+        <select id="log-difficulty">
+          <option value="easy">easy</option>
+          <option value="medium">medium</option>
+          <option value="hard">hard</option>
+        </select>
+      </label>
+      <label>Topic / concept tags (comma separated)
+        <input type="text" id="log-topics" placeholder="array, two pointers" />
+      </label>
+      <div class="time-taken-display">time taken: <span id="log-minutes">0</span> min (from timer)</div>
+      <div class="modal-actions">
+        <button id="modal-cancel">cancel</button>
+        <button id="modal-save">save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add task modal -->
+  <div class="modal-backdrop" id="add-modal">
+    <div class="modal">
+      <h3>new task</h3>
+      <label>What
+        <input type="text" id="new-task-action" placeholder="Two Sum" />
+      </label>
+      <label>Topic (pick one)
+        <select id="new-task-topic">
+          <option value="Backend">Backend</option>
+          <option value="AI Engineering">AI Engineering</option>
+          <option value="DSA">DSA</option>
+          <option value="Research">Research</option>
+          <option value="Job Applications">Job Applications</option>
+          <option value="Abroad Search">Abroad Search</option>
+        </select>
+      </label>
+      <div class="modal-actions">
+        <button id="add-cancel">cancel</button>
+        <button id="add-save">add</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

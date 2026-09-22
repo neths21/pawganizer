@@ -1,0 +1,15 @@
+{
+  "name": "pawganizer",
+  "version": "1.0.0",
+  "description": "Cute always-on-top pomodoro + to-do app synced to your Notion Placement Plan, with a cat",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}

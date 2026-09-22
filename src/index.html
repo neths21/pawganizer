@@ -9,7 +9,7 @@
   <div class="card" id="drag-region">
     <header>
       <span class="dot"></span>
-      <h1>focus time 🌷</h1>
+      <h1>focus time</h1>
       <button id="minimize-btn" title="Minimize"><span class="icon-minimize"></span></button>
       <button id="quit-btn" title="Quit"><span class="icon-close"></span></button>
     </header>
@@ -55,22 +55,23 @@
         </button>
         <button id="reset-btn" title="Stop / Reset"><span class="icon-stop"></span></button>
         <select id="mode-select">
-          <option value="25">25 min focus</option>
-          <option value="5">5 min break</option>
-          <option value="10">10 min break</option>
-          <option value="30">30 min break</option>
-          <option value="50">50 min deep work</option>
+          <option value="25" data-type="focus">25 min focus</option>
+          <option value="5" data-type="break">5 min break</option>
+          <option value="10" data-type="break">10 min break</option>
+          <option value="30" data-type="break">30 min break</option>
+          <option value="50" data-type="focus">50 min deep work</option>
         </select>
       </div>
-      <div class="active-task" id="active-task">no task selected — pick one below</div>
+      <div class="active-task" id="active-task">no task selected</div>
     </section>
 
     <section class="page tasks-section" id="page-tasks">
       <div class="tasks-header">
         <button id="back-to-timer-btn" title="Back to timer">‹</button>
-        <h2>today ✨</h2>
+        <h2>today</h2>
         <button id="add-task-btn">+ add</button>
       </div>
+      <div class="total-focus" id="total-focus">0m focused today</div>
       <ul id="task-list"></ul>
     </section>
   </div>

@@ -5,8 +5,10 @@ let timerSeconds = 25 * 60;
 let totalSeconds = 25 * 60;
 let timerInterval = null;
 let elapsedForTask = 0; // seconds actually spent on the currently selected task
+let totalFocusSeconds = 0; // focus (non-break) seconds accumulated today
 
 const RING_CIRCUMFERENCE = 327;
+const FOCUS_STORAGE_KEY = "pawganizer:totalFocus";
 
 // Elements
 const timerLabel = document.getElementById("timer-label");
@@ -16,6 +18,7 @@ const resetBtn = document.getElementById("reset-btn");
 const modeSelect = document.getElementById("mode-select");
 const activeTaskEl = document.getElementById("active-task");
 const taskListEl = document.getElementById("task-list");
+const totalFocusEl = document.getElementById("total-focus");
 
 const doneModal = document.getElementById("done-modal");
 const addModal = document.getElementById("add-modal");
@@ -89,7 +92,7 @@ function startTimer() {
       startBtn.classList.add("paused");
       startBtn.title = "Start";
       setCatBaseState(false);
-      new Notification("Time's up! 🌸", { body: "Session complete — take a breath." });
+      new Notification("Time's up! 🌸", { body: "Session complete, take a breath." });
     }
   }, 1000);
 }
@@ -126,7 +129,7 @@ async function loadTasks() {
   try {
     tasks = await window.api.getTasks();
   } catch (err) {
-    activeTaskEl.textContent = "couldn't reach Notion — check .env config";
+    activeTaskEl.textContent = "couldn't reach Notion, check .env config";
     console.error(err);
     return;
   }
@@ -205,7 +208,7 @@ document.getElementById("modal-save").addEventListener("click", async () => {
   doneModal.classList.remove("open");
   triggerCatPounce();
   selectedTaskId = null;
-  activeTaskEl.textContent = "no task selected — pick one below";
+  activeTaskEl.textContent = "no task selected";
   loadTasks();
 });
 

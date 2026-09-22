@@ -1,13 +1,13 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --accent: #7C6FE0;
-  --accent-dark: #5f52c9;
-  --accent-soft: #ECE9FF;
-  --text: #453b63;
-  --text-soft: #8b81a8;
-  --danger: #e8748f;
-  --card-bg: #FBF9FF;
+  --accent: #C1694C;
+  --accent-dark: #9E4F38;
+  --accent-soft: #F2DCCB;
+  --text: #4A3B32;
+  --text-soft: #9C8A7C;
+  --danger: #C1544A;
+  --card-bg: #FFFBF5;
 }
 
 html, body {
@@ -27,11 +27,11 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(165deg, #FDF7FF 0%, #EFEBFF 100%);
+  background: linear-gradient(165deg, #FFF8EF 0%, #F3E7D8 100%);
   border-radius: 22px;
-  box-shadow: 0 14px 34px rgba(110, 95, 170, 0.28);
+  box-shadow: 0 14px 34px rgba(120, 85, 50, 0.22);
   padding: 16px 18px 20px;
-  border: 1px solid #e4defc;
+  border: 1px solid #EAD9C4;
   overflow: hidden;
 }
 
@@ -57,7 +57,7 @@ header button {
   width: 24px; height: 24px; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
 }
-#quit-btn:hover { background: #fbe4e9; }
+#quit-btn:hover { background: #F6DCD3; }
 #minimize-btn:hover { background: var(--accent-soft); }
 
 .icon-minimize { width: 10px; height: 2px; background: var(--text-soft); border-radius: 1px; }
@@ -70,10 +70,10 @@ header button {
 .icon-close::before { transform: rotate(45deg); }
 .icon-close::after { transform: rotate(-45deg); }
 
-/* hamburger nav button sits just left of the clock, clear of the ring */
+/* hamburger nav button pinned to the far left edge of the card */
 #tasks-nav-btn {
   -webkit-app-region: no-drag;
-  position: absolute; top: 34px; left: -46px; z-index: 2;
+  position: absolute; top: 4px; left: -82px; z-index: 2;
   width: 24px; height: 24px; border-radius: 50%;
   border: none; background: var(--accent-soft); cursor: pointer;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
@@ -100,7 +100,7 @@ header button {
   font-size: 18px; font-weight: 700; color: var(--text);
 }
 
-/* Cat (namespaced as .pet-cat* — must never collide with the
+/* Cat (namespaced as .pet-cat*, must never collide with the
    unrelated .cat topic-tag class used in the task list) */
 .pet-cat {
   position: absolute;
@@ -114,9 +114,9 @@ header button {
 
 .pet-cat-body, .pet-cat-face { fill: #2b2b33; }
 .pet-cat-ear { fill: #2b2b33; }
-.pet-cat-ear-inner { fill: #7C6FE0; }
+.pet-cat-ear-inner { fill: var(--accent); }
 .pet-cat-tail { stroke: #2b2b33; stroke-width: 6; }
-.pet-cat-whisker { stroke: #cfcfe0; stroke-width: 1; }
+.pet-cat-whisker { stroke: #D9CAB9; stroke-width: 1; }
 .pet-cat-eye { fill: #f4d35e; transform-box: fill-box; transform-origin: center; }
 .pet-cat-nose { fill: #f4a3c1; }
 .pet-cat-paw { fill: #2b2b33; transform-box: fill-box; transform-origin: top center; }
@@ -125,7 +125,7 @@ header button {
   font-family: -apple-system, "Segoe UI", sans-serif;
 }
 
-/* idle: timer running — occasional blink */
+/* idle: timer running, occasional blink */
 .pet-cat.idle .pet-cat-eye { animation: cat-blink 4.5s infinite ease-in-out; }
 
 @keyframes cat-blink {
@@ -133,7 +133,7 @@ header button {
   94% { transform: scaleY(0.1); }
 }
 
-/* sleeping: timer paused — closed eyes, slow breathing, zzz */
+/* sleeping: timer paused, closed eyes, slow breathing, zzz */
 .pet-cat.sleeping .pet-cat-eye { transform: scaleY(0.15); }
 .pet-cat.sleeping .pet-cat-body,
 .pet-cat.sleeping .pet-cat-head { animation: cat-breathe 3.2s ease-in-out infinite; }
@@ -180,7 +180,7 @@ header button {
 #start-btn { background: var(--accent); color: #fff; width: 40px; height: 40px; position: relative; }
 .timer-controls button:hover { filter: brightness(0.95); }
 
-/* play/pause icons are drawn with CSS, not unicode glyphs — those render
+/* play/pause icons are drawn with CSS, not unicode glyphs; those render
    inconsistently (e.g. the pause symbol falling back to a double dash) */
 .icon-play, .icon-pause { display: none; }
 #start-btn.paused .icon-play {
@@ -202,9 +202,13 @@ header button {
   text-align: center; font-size: 12px; color: var(--text-soft); margin-bottom: 4px; min-height: 16px; flex-shrink: 0;
 }
 
-.tasks-section { border-top: 1px dashed #ddd2fb; padding-top: 10px; }
+.tasks-section { border-top: 1px dashed #E6D2BB; padding-top: 10px; }
 .tasks-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-shrink: 0; }
 .tasks-header h2 { font-size: 13px; color: var(--text); flex: 1; }
+.total-focus {
+  font-size: 11px; color: var(--text-soft); text-align: center;
+  margin-bottom: 8px; flex-shrink: 0;
+}
 #back-to-timer-btn {
   border: none; background: var(--accent-soft); color: var(--accent-dark); border-radius: 10px;
   width: 22px; height: 22px; font-size: 15px; line-height: 1; cursor: pointer; font-weight: 700;
@@ -230,7 +234,7 @@ header button {
 #task-list li {
   display: flex; align-items: center; gap: 8px; padding: 9px 8px;
   border-radius: 10px; font-size: 12.5px; color: var(--text); cursor: pointer;
-  margin-bottom: 4px; background: #ffffffa8;
+  margin-bottom: 4px; background: #FFFCF6a8;
 }
 #task-list li:hover { background: #ffffff; }
 #task-list li.selected { background: var(--accent-soft); }
@@ -245,20 +249,20 @@ header button {
 }
 
 .modal-backdrop {
-  display: none; position: fixed; inset: 0; background: rgba(40, 30, 70, 0.35);
+  display: none; position: fixed; inset: 0; background: rgba(45, 32, 20, 0.35);
   align-items: center; justify-content: center;
 }
 .modal-backdrop.open { display: flex; }
 .modal {
   background: #fff; border-radius: 16px; padding: 18px; width: 260px;
   display: flex; flex-direction: column; gap: 10px;
-  box-shadow: 0 12px 28px rgba(80, 60, 140, 0.25);
+  box-shadow: 0 12px 28px rgba(90, 60, 30, 0.25);
 }
 .modal h3 { font-size: 14px; color: var(--text); margin-bottom: 4px; }
 .modal label { font-size: 11px; color: var(--text-soft); display: flex; flex-direction: column; gap: 3px; }
 .modal input, .modal select {
-  padding: 6px 8px; border-radius: 8px; border: 1px solid #e2dbfa; font-size: 12px;
-  color: var(--text); background: #fbfaff;
+  padding: 6px 8px; border-radius: 8px; border: 1px solid #EAD9C4; font-size: 12px;
+  color: var(--text); background: #FFFBF5;
 }
 .modal input:focus, .modal select:focus { outline: none; border-color: var(--accent); }
 .time-taken-display { font-size: 11px; color: var(--text-soft); }
@@ -266,6 +270,6 @@ header button {
 .modal-actions button {
   border: none; border-radius: 8px; padding: 7px 14px; font-size: 12px; cursor: pointer; font-weight: 600;
 }
-#modal-cancel, #add-cancel { background: #f1eefc; color: var(--text-soft); }
+#modal-cancel, #add-cancel { background: #F3E7D8; color: var(--text-soft); }
 #modal-save, #add-save { background: var(--accent); color: white; }
 #modal-save:hover, #add-save:hover { background: var(--accent-dark); }

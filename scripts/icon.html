@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; }
+</style>
+</head>
+<body>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="256" y2="256" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ECE9FF"/>
+      <stop offset="1" stop-color="#CBC2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+
+  <!-- ears -->
+  <polygon points="70,96 92,34 118,96" fill="#2b2b33"/>
+  <polygon points="138,96 164,34 186,96" fill="#2b2b33"/>
+  <polygon points="80,90 92,58 106,90" fill="#7C6FE0"/>
+  <polygon points="150,90 164,58 178,90" fill="#7C6FE0"/>
+
+  <!-- head -->
+  <circle cx="128" cy="128" r="70" fill="#2b2b33"/>
+
+  <!-- whiskers -->
+  <line x1="28" y1="118" x2="66" y2="125" stroke="#cfcfe0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="28" y1="140" x2="66" y2="137" stroke="#cfcfe0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="228" y1="118" x2="190" y2="125" stroke="#cfcfe0" stroke-width="4" stroke-linecap="round"/>
+  <line x1="228" y1="140" x2="190" y2="137" stroke="#cfcfe0" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- eyes -->
+  <ellipse cx="104" cy="122" rx="12" ry="15" fill="#f4d35e"/>
+  <ellipse cx="152" cy="122" rx="12" ry="15" fill="#f4d35e"/>
+  <circle cx="104" cy="124" r="4.5" fill="#2b2b33"/>
+  <circle cx="152" cy="124" r="4.5" fill="#2b2b33"/>
+
+  <!-- nose -->
+  <polygon points="119,148 137,148 128,160" fill="#f4a3c1"/>
+</svg>
+</body>
+</html>

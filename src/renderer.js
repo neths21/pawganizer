@@ -1,4 +1,4 @@
-// ---------- State ----------
+// State
 let tasks = [];
 let selectedTaskId = null;
 let timerSeconds = 25 * 60;
@@ -8,7 +8,7 @@ let elapsedForTask = 0; // seconds actually spent on the currently selected task
 
 const RING_CIRCUMFERENCE = 327;
 
-// ---------- Elements ----------
+// Elements
 const timerLabel = document.getElementById("timer-label");
 const ringProgress = document.getElementById("ring-progress");
 const startBtn = document.getElementById("start-btn");
@@ -26,10 +26,11 @@ const pageTasks = document.getElementById("page-tasks");
 const tasksNavBtn = document.getElementById("tasks-nav-btn");
 const backToTimerBtn = document.getElementById("back-to-timer-btn");
 
-// ---------- Pages ----------
+// Pages
 function showPage(page) {
   pageTimer.classList.toggle("active", page === "timer");
   pageTasks.classList.toggle("active", page === "tasks");
+  window.api.setPage(page);
 }
 
 tasksNavBtn.addEventListener("click", () => showPage("tasks"));
@@ -37,7 +38,7 @@ backToTimerBtn.addEventListener("click", () => showPage("timer"));
 
 showPage("timer");
 
-// ---------- Cat ----------
+// Cat
 function setCatBaseState(running) {
   catEl.classList.remove("idle", "sleeping");
   catEl.classList.add(running ? "idle" : "sleeping");
@@ -62,7 +63,7 @@ catEl.addEventListener("animationend", (e) => {
 
 setCatBaseState(false);
 
-// ---------- Timer ----------
+// Timer
 function renderTimer() {
   const m = Math.floor(timerSeconds / 60).toString().padStart(2, "0");
   const s = (timerSeconds % 60).toString().padStart(2, "0");
@@ -73,7 +74,8 @@ function renderTimer() {
 
 function startTimer() {
   if (timerInterval) return;
-  startBtn.textContent = "⏸";
+  startBtn.classList.remove("paused");
+  startBtn.classList.add("playing");
   startBtn.title = "Pause";
   setCatBaseState(true);
   timerInterval = setInterval(() => {
@@ -83,7 +85,8 @@ function startTimer() {
     if (timerSeconds <= 0) {
       clearInterval(timerInterval);
       timerInterval = null;
-      startBtn.textContent = "▶";
+      startBtn.classList.remove("playing");
+      startBtn.classList.add("paused");
       startBtn.title = "Start";
       setCatBaseState(false);
       new Notification("Time's up! 🌸", { body: "Session complete — take a breath." });
@@ -94,7 +97,8 @@ function startTimer() {
 function pauseTimer() {
   clearInterval(timerInterval);
   timerInterval = null;
-  startBtn.textContent = "▶";
+  startBtn.classList.remove("playing");
+  startBtn.classList.add("paused");
   startBtn.title = "Start";
   setCatBaseState(false);
 }
@@ -117,7 +121,7 @@ modeSelect.addEventListener("change", () => {
   renderTimer();
 });
 
-// ---------- Tasks ----------
+// Tasks
 async function loadTasks() {
   try {
     tasks = await window.api.getTasks();
@@ -168,7 +172,7 @@ document.getElementById("add-save").addEventListener("click", async () => {
   loadTasks();
 });
 
-// ---------- Done / log flow ----------
+// Done / log flow
 let pendingTask = null;
 
 function openDoneModal(task) {
@@ -205,8 +209,9 @@ document.getElementById("modal-save").addEventListener("click", async () => {
   loadTasks();
 });
 
-// ---------- Misc ----------
+// Misc
 document.getElementById("quit-btn").addEventListener("click", () => window.close());
+document.getElementById("minimize-btn").addEventListener("click", () => window.api.minimize());
 window.api.onTasksRefresh(() => loadTasks());
 
 renderTimer();

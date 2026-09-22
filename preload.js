@@ -8,4 +8,6 @@ contextBridge.exposeInMainWorld("api", {
   logLeetcode: (entry) => ipcRenderer.invoke("notion:logLeetcode", entry),
   logDevelopment: (entry) => ipcRenderer.invoke("notion:logDevelopment", entry),
   onTasksRefresh: (cb) => ipcRenderer.on("tasks:refresh", cb),
+  minimize: () => ipcRenderer.invoke("window:minimize"),
+  setPage: (page) => ipcRenderer.invoke("window:setPage", page),
 });

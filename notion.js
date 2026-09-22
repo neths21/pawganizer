@@ -43,7 +43,7 @@ function todayISO() {
   return new Date().toISOString().slice(0, 10);
 }
 
-// ---------- Planner (the two-way to-do list) ----------
+// Planner (the two-way to-do list)
 
 async function getTodayTasks() {
   const data = await notionFetch(`/databases/${DB.planner}/query`, {
@@ -110,7 +110,7 @@ async function completeTask(pageId) {
   });
 }
 
-// ---------- Leetcode log ----------
+// Leetcode log
 
 async function logLeetcode({ question, difficulty, topics = [], minutes, company = [] }) {
   const props = {
@@ -128,7 +128,7 @@ async function logLeetcode({ question, difficulty, topics = [], minutes, company
   });
 }
 
-// ---------- Development (roadmap.sh) log ----------
+// Development (roadmap.sh) log
 
 async function logDevelopment({ concept, difficulty, techStack = [], minutes, company = [] }) {
   const props = {

@@ -23,8 +23,8 @@ body {
 }
 
 .card {
-  width: 320px;
-  height: 480px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background: linear-gradient(165deg, #FDF7FF 0%, #EFEBFF 100%);
@@ -49,20 +49,40 @@ header h1 {
   flex: 1;
 }
 .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; margin-right: 8px; }
-#quit-btn {
+
+/* header icon buttons share a common shape; only the glyph differs */
+header button {
   -webkit-app-region: no-drag;
-  background: none; border: none; font-size: 18px; color: var(--danger); cursor: pointer;
-  border-radius: 8px; padding: 0 4px; line-height: 1;
+  background: none; border: none; cursor: pointer;
+  width: 24px; height: 24px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
 }
 #quit-btn:hover { background: #fbe4e9; }
+#minimize-btn:hover { background: var(--accent-soft); }
+
+.icon-minimize { width: 10px; height: 2px; background: var(--text-soft); border-radius: 1px; }
+
+.icon-close { position: relative; width: 11px; height: 11px; }
+.icon-close::before, .icon-close::after {
+  content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 2px;
+  background: var(--danger); border-radius: 1px;
+}
+.icon-close::before { transform: rotate(45deg); }
+.icon-close::after { transform: rotate(-45deg); }
+
+/* hamburger nav button sits just left of the clock, clear of the ring */
 #tasks-nav-btn {
   -webkit-app-region: no-drag;
-  background: none; border: none; font-size: 14px; color: var(--accent-dark); cursor: pointer;
-  margin-right: 4px; padding: 2px 6px; border-radius: 8px;
+  position: absolute; top: 34px; left: -46px; z-index: 2;
+  width: 24px; height: 24px; border-radius: 50%;
+  border: none; background: var(--accent-soft); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
 }
-#tasks-nav-btn:hover { background: var(--accent-soft); }
+#tasks-nav-btn span { width: 11px; height: 2px; background: var(--accent-dark); border-radius: 1px; }
+#tasks-nav-btn:hover { background: var(--accent); }
+#tasks-nav-btn:hover span { background: #fff; }
 
-/* ---------- Pages ---------- */
+/* Pages */
 .page { display: none; flex: 1; min-height: 0; }
 .page.active { display: flex; flex-direction: column; }
 
@@ -80,8 +100,8 @@ header h1 {
   font-size: 18px; font-weight: 700; color: var(--text);
 }
 
-/* ---------- Cat (namespaced as .pet-cat* — must never collide with the
-   unrelated .cat topic-tag class used in the task list) ---------- */
+/* Cat (namespaced as .pet-cat* — must never collide with the
+   unrelated .cat topic-tag class used in the task list) */
 .pet-cat {
   position: absolute;
   bottom: -8px;
@@ -155,10 +175,24 @@ header h1 {
 .timer-controls button {
   border: none; border-radius: 50%; cursor: pointer;
   width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;
-  background: var(--accent-soft); color: var(--accent-dark); font-size: 14px;
+  background: var(--accent-soft); color: var(--accent-dark);
 }
-#start-btn { background: var(--accent); color: #fff; width: 40px; height: 40px; font-size: 16px; }
+#start-btn { background: var(--accent); color: #fff; width: 40px; height: 40px; position: relative; }
 .timer-controls button:hover { filter: brightness(0.95); }
+
+/* play/pause icons are drawn with CSS, not unicode glyphs — those render
+   inconsistently (e.g. the pause symbol falling back to a double dash) */
+.icon-play, .icon-pause { display: none; }
+#start-btn.paused .icon-play {
+  display: block; width: 0; height: 0; margin-left: 2px;
+  border-style: solid; border-width: 7px 0 7px 11px;
+  border-color: transparent transparent transparent #fff;
+}
+#start-btn.playing .icon-pause { display: flex; gap: 3px; }
+#start-btn.playing .icon-pause::before, #start-btn.playing .icon-pause::after {
+  content: ""; width: 3px; height: 13px; background: #fff; border-radius: 1px;
+}
+.icon-stop { width: 11px; height: 11px; background: var(--accent-dark); border-radius: 2px; }
 .timer-controls select {
   border: none; border-radius: 12px; padding: 6px 10px; font-size: 11px; cursor: pointer;
   background: var(--accent-soft); color: var(--accent-dark); font-weight: 600;

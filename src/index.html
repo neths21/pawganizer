@@ -10,12 +10,15 @@
     <header>
       <span class="dot"></span>
       <h1>focus time 🌷</h1>
-      <button id="tasks-nav-btn" title="View tasks">📋</button>
-      <button id="quit-btn" title="Quit">×</button>
+      <button id="minimize-btn" title="Minimize"><span class="icon-minimize"></span></button>
+      <button id="quit-btn" title="Quit"><span class="icon-close"></span></button>
     </header>
 
     <section class="page timer-section" id="page-timer">
       <div class="timer-ring">
+        <button id="tasks-nav-btn" title="View tasks">
+          <span></span><span></span><span></span>
+        </button>
         <svg viewBox="0 0 120 120">
           <circle class="ring-bg" cx="60" cy="60" r="52" />
           <circle class="ring-progress" id="ring-progress" cx="60" cy="60" r="52" />
@@ -46,8 +49,11 @@
         </div>
       </div>
       <div class="timer-controls">
-        <button id="start-btn" title="Start">▶</button>
-        <button id="reset-btn" title="Stop / Reset">⏹</button>
+        <button id="start-btn" class="paused" title="Start">
+          <span class="icon-play"></span>
+          <span class="icon-pause"></span>
+        </button>
+        <button id="reset-btn" title="Stop / Reset"><span class="icon-stop"></span></button>
         <select id="mode-select">
           <option value="25">25 min focus</option>
           <option value="5">5 min break</option>

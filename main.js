@@ -7,12 +7,17 @@ let win;
 let tray;
 let pollTimer;
 
+const PAGE_SIZES = {
+  timer: { width: 300, height: 248 },
+  tasks: { width: 300, height: 480 },
+};
+
 function createWindow() {
   const { width: sw, height: sh } = screen.getPrimaryDisplay().workAreaSize;
 
   win = new BrowserWindow({
-    width: 320,
-    height: 480,
+    width: PAGE_SIZES.timer.width,
+    height: PAGE_SIZES.timer.height,
     x: sw - 340,
     y: 40,
     frame: false,
@@ -20,6 +25,7 @@ function createWindow() {
     alwaysOnTop: true,
     skipTaskbar: false,
     transparent: true,
+    icon: path.join(__dirname, "src", "icon.png"),
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       contextIsolation: true,
@@ -57,7 +63,18 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
-// ---------- IPC bridge to notion.js ----------
+// IPC bridge to notion.js
+
+ipcMain.handle("window:minimize", () => win.minimize());
+ipcMain.handle("window:setPage", (_e, page) => {
+  const size = PAGE_SIZES[page] || PAGE_SIZES.timer;
+  // On Windows, setSize() can silently no-op on a resizable:false window
+  // (it's pinned to whatever size it had when that flag was last set),
+  // so toggle resizable on around the resize to force it through.
+  win.setResizable(true);
+  win.setSize(size.width, size.height);
+  win.setResizable(false);
+});
 
 ipcMain.handle("notion:getTasks", async () => notion.getTodayTasks());
 ipcMain.handle("notion:createTask", async (_e, task) => notion.createTask(task));
